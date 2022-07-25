@@ -1,4 +1,4 @@
-package com.hogent.pandora.fragments.list
+package com.hogent.pandora.fragments.users.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
