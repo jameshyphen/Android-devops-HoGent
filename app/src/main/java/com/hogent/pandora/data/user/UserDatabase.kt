@@ -11,7 +11,6 @@ abstract class UserDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object {
-
         // Singleton
         @Volatile
         private var INSTANCE: UserDatabase? = null
