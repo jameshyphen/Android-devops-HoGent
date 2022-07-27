@@ -7,33 +7,35 @@
     android:padding="24sp">
 
     <TextView
-        android:id="@+id/user_id"
+        android:id="@+id/txt_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:padding="24sp"
+        android:text="1"
+        android:textSize="34dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/user_id2"
+        android:id="@+id/txt_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:padding="24sp"
+        android:text="dzhemaptula"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/user_id"
+        app:layout_constraintStart_toEndOf="@+id/txt_id"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/user_id3"
+        android:id="@+id/txt_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:padding="24sp"
+        android:layout_marginStart="14dp"
+        android:text="(25)"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/user_id2"
+        app:layout_constraintStart_toEndOf="@+id/txt_username"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

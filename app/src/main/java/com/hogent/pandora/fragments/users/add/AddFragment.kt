@@ -55,7 +55,7 @@ class AddFragment : Fragment() {
             view.findViewById<TextView>(R.id.errors).text = "Username or password is empty"
         } else if (checkPassword(password)) {
             view.findViewById<TextView>(R.id.errors).text =
-                "Password should be minimum 6 characters}"
+                "Password should be minimum 6 characters"
         } else {
             Toast.makeText(context, "Sucessfully added!", Toast.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
