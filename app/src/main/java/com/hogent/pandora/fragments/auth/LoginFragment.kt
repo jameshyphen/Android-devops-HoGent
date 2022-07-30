@@ -1,6 +1,7 @@
 package com.hogent.pandora.fragments.auth
 
 import android.os.Bundle
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.hogent.pandora.R
@@ -17,6 +19,7 @@ import com.hogent.pandora.data.user.UserDatabase
 import com.hogent.pandora.data.user.UserViewModel
 import com.hogent.pandora.utils.inputCheck
 import com.hogent.pandora.utils.sha256
+import kotlin.concurrent.thread
 
 class LoginFragment : Fragment() {
 
@@ -26,8 +29,11 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            findNavController().navigate(R.id.loginFragment)
+        }
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_user_add, container, false)
+        val view = inflater.inflate(R.layout.fragment_login, container, false)
 
         mUserViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
@@ -43,7 +49,7 @@ class LoginFragment : Fragment() {
                     Toast.makeText(context, "Invalid credentials", Toast.LENGTH_SHORT).show()
                 } else {
                     UserAuthentication.login(user)
-                    findNavController().navigate(R.id.action_loginFragment_to_postFragment)
+                    findNavController().navigate(R.id.menuFragment)
                 }
             }
         }

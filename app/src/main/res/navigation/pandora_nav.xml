@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/user_nav"
-    app:startDestination="@id/userListFragment">
+    app:startDestination="@id/menuFragment">
 
     <fragment
         android:id="@+id/userListFragment"
@@ -37,29 +37,20 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_postFragment"
-            app:destination="@id/postListFragment" />
+            android:id="@+id/action_loginFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/postListFragment"
-        android:name="com.hogent.pandora.PostFragment"
+        android:name="com.hogent.pandora.fragments.post.list.PostListFragment"
         android:label="fragment_post"
         tools:layout="@layout/fragment_post_list" >
-        <action
-            android:id="@+id/action_postFragment_to_listFragment"
-            app:destination="@id/userListFragment" />
         <action
             android:id="@+id/action_postListFragment_to_postAddFragment"
             app:destination="@id/postAddFragment" />
         <action
             android:id="@+id/action_postListFragment_to_postViewFragment"
             app:destination="@id/postViewFragment" />
-        <action
-            android:id="@+id/action_postListFragment_to_userViewFragment"
-            app:destination="@id/userViewFragment" />
-        <action
-            android:id="@+id/action_postListFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/postAddFragment"
@@ -101,6 +92,21 @@
         tools:layout="@layout/fragment_user_edit" >
         <action
             android:id="@+id/action_userEditFragment_to_userViewFragment"
+            app:destination="@id/userViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.hogent.pandora.fragments.menu.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_postListFragment"
+            app:destination="@id/postListFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_userListFragment"
+            app:destination="@id/userListFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_userViewFragment"
             app:destination="@id/userViewFragment" />
     </fragment>
 </navigation>

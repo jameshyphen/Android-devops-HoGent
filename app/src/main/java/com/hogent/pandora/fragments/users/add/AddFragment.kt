@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
 import com.hogent.pandora.R
 import com.hogent.pandora.data.user.User
+import com.hogent.pandora.data.user.UserAuthentication
 import com.hogent.pandora.data.user.UserViewModel
 import com.hogent.pandora.utils.checkPassword
 import com.hogent.pandora.utils.inputCheck
@@ -34,6 +35,9 @@ class AddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if(!UserAuthentication.isLoggedIn()){
+            findNavController().navigate(R.id.loginFragment)
+        }
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_user_add, container, false)
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.hogent.pandora.R
+import com.hogent.pandora.data.user.UserAuthentication
 import com.hogent.pandora.data.user.UserViewModel
 
 
@@ -23,6 +24,9 @@ class ListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if(!UserAuthentication.isLoggedIn()){
+            findNavController().navigate(R.id.loginFragment)
+        }
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_user_list, container, false)
 
