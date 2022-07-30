@@ -24,4 +24,12 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
             repository.addUser(user)
         }
     }
+
+    fun login(username: String, passwordSha256: String): User{
+        return repository.login(username, passwordSha256)
+    }
+
+    fun isTaken(username: String): Boolean{
+        return repository.isTaken(username)
+    }
 }

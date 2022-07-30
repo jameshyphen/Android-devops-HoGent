@@ -8,4 +8,12 @@ class UserRepository(private val userDao: UserDao) {
     suspend fun addUser(user: User){
         userDao.addUser(user)
     }
+
+    fun login(username: String, passwordSha256: String): User{
+        return userDao.login(username, passwordSha256)
+    }
+
+    fun isTaken(username: String): Boolean {
+        return userDao.isTaken(username)
+    }
 }
