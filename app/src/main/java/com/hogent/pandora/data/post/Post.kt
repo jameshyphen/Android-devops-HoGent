@@ -2,6 +2,7 @@ package com.hogent.pandora.data.post
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.time.LocalDate
 
 @Entity(tableName = "post_table")
 data class Post(
@@ -11,4 +12,5 @@ data class Post(
     val content: String,
     val usersFavorite: List<Int>,
     val checkedByAdmin: Boolean,
+    val dateAdded: LocalDate,
 )

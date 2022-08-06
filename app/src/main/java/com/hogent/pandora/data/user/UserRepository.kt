@@ -1,9 +1,12 @@
 package com.hogent.pandora.data.user
 
 import androidx.lifecycle.LiveData
+import com.hogent.pandora.data.post.UserWithPosts
 
 class UserRepository(private val userDao: UserDao) {
     val readAllData: LiveData<List<User>> = userDao.readAllData()
+
+    val readUsersWithPosts: List<UserWithPosts> = userDao.readUsersWithPosts()
 
     suspend fun addUser(user: User){
         userDao.addUser(user)

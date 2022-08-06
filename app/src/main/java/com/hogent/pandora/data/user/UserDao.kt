@@ -1,10 +1,9 @@
 package com.hogent.pandora.data.user
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import com.hogent.pandora.data.post.Post
+import com.hogent.pandora.data.post.UserWithPosts
 
 @Dao
 interface UserDao {
@@ -20,4 +19,12 @@ interface UserDao {
 
     @Query("SELECT * FROM user_table WHERE userName=:userName AND password=:password")
     fun login(userName: String, password: String): User
+
+    @Transaction
+    @Query("SELECT * FROM user_table ORDER BY userId ASC")
+    fun readUsersWithPosts(): List<UserWithPosts>
+
+    @Transaction
+    @Insert
+    fun addPost(post: Post?): Int
 }

@@ -40,7 +40,6 @@ class UserListFragment : Fragment() {
         mUserViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         mUserViewModel.readAllData.observe(viewLifecycleOwner, Observer{ user ->
             adapter.setData(user)
-
         })
 
         view.findViewById<FloatingActionButton>(R.id.userAddFloatingActionButton).setOnClickListener{
