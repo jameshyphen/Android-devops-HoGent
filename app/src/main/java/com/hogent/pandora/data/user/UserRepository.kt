@@ -6,7 +6,7 @@ import com.hogent.pandora.data.post.UserWithPosts
 class UserRepository(private val userDao: UserDao) {
     val readAllData: LiveData<List<User>> = userDao.readAllData()
 
-    val readUsersWithPosts: List<UserWithPosts> = userDao.readUsersWithPosts()
+    val readUsersWithPosts: LiveData<List<UserWithPosts>> = userDao.readUsersWithPosts()
 
     fun addUser(user: User) {
         userDao.addUser(user)

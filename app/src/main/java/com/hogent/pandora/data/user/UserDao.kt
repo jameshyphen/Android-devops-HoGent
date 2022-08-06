@@ -25,7 +25,7 @@ interface UserDao {
 
     @Transaction
     @Query("SELECT * FROM user ORDER BY userId ASC")
-    fun readUsersWithPosts(): List<UserWithPosts>
+    fun readUsersWithPosts(): LiveData<List<UserWithPosts>>
 
     @Transaction
     @Insert

@@ -1,38 +1,66 @@
 package com.hogent.pandora.fragments.post.list
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hogent.pandora.R
+import com.hogent.pandora.data.post.Post
 import com.hogent.pandora.data.user.User
-import java.time.LocalDate
-import java.time.Period
+import com.hogent.pandora.utils.md5
+import com.squareup.picasso.Picasso
+import java.net.URL
+import java.time.format.DateTimeFormatter
 
-class PostListAdapter: RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
+
+class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
+    private var postList = emptyList<Post>()
     private var userList = emptyList<User>()
 
-    class MyViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.user_row, parent, false))
+        return MyViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.post_row, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentItem = userList[position]
-        holder.itemView.findViewById<TextView>(R.id.txt_id).text = currentItem.userId.toString()
-        holder.itemView.findViewById<TextView>(R.id.txt_username).text = currentItem.userName
-        holder.itemView.findViewById<TextView>(R.id.txt_age).text = Period.between(currentItem.birthdate, LocalDate.now()).years.toString()
+        val currentPost = postList[position]
+        val user = userList.find { user -> user.userId == currentPost.userCreatorId }
+        var formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
+
+        val hash = user!!.email.trim().lowercase().md5()
+        val url = "https://www.gravatar.com/avatar/$hash?s=50"
+        val imageView = holder.itemView.findViewById<ImageView>(R.id.user_avatar_post)
+
+//        val imgUrl = URL(url)
+//        val mIcon = BitmapFactory.decodeStream(imgUrl.openConnection().getInputStream())
+//        imageView.setImageBitmap(mIcon)
+
+        Picasso.get()
+            .load(url)
+            .resize(25, 25)
+            .centerCrop()
+            .into(imageView)
+
+        holder.itemView.findViewById<TextView>(R.id.txt_username).text = user.userName
+        holder.itemView.findViewById<TextView>(R.id.txt_datecreated).text =
+            currentPost.dateAdded.format(formatter)
+        holder.itemView.findViewById<TextView>(R.id.txt_content).text = currentPost.content
     }
 
     override fun getItemCount(): Int {
-        return userList.size
+        return postList.size
     }
 
-    fun setData(users: List<User>){
+    fun setData(posts: List<Post>, users: List<User>) {
+        this.postList = posts
         this.userList = users
         notifyDataSetChanged()
     }

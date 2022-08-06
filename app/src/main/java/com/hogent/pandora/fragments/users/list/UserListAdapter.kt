@@ -25,7 +25,7 @@ class UserListAdapter: RecyclerView.Adapter<UserListAdapter.MyViewHolder>() {
         val currentItem = userList[position]
         holder.itemView.findViewById<TextView>(R.id.txt_id).text = currentItem.userId.toString()
         holder.itemView.findViewById<TextView>(R.id.txt_username).text = currentItem.userName
-        holder.itemView.findViewById<TextView>(R.id.txt_age).text = Period.between(currentItem.birthdate, LocalDate.now()).years.toString()
+        holder.itemView.findViewById<TextView>(R.id.txt_datecreated).text = Period.between(currentItem.birthdate, LocalDate.now()).years.toString()
     }
 
     override fun getItemCount(): Int {

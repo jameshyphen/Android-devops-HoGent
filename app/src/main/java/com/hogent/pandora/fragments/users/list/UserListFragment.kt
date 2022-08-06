@@ -31,15 +31,15 @@ class UserListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_user_list, container, false)
 
         // RecyclerView
-        val adapter = UserListAdapter()
+        val userListAdapter = UserListAdapter()
         val recyclerView = view.findViewById<RecyclerView>(R.id.userRecyclerView)
-        recyclerView.adapter = adapter
+        recyclerView.adapter = userListAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         // UserViewModel
         mUserViewModel = ViewModelProvider(this)[UserViewModel::class.java]
-        mUserViewModel.readAllData.observe(viewLifecycleOwner, Observer{ user ->
-            adapter.setData(user)
+        mUserViewModel.readAllUsers.observe(viewLifecycleOwner, Observer{ user ->
+            userListAdapter.setData(user)
         })
 
         view.findViewById<FloatingActionButton>(R.id.userAddFloatingActionButton).setOnClickListener{

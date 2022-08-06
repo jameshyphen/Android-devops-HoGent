@@ -5,32 +5,37 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.hogent.pandora.data.PandoraDatabase
+import com.hogent.pandora.data.post.UserWithPosts
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UserViewModel(application: Application): AndroidViewModel(application) {
+class UserViewModel(application: Application) : AndroidViewModel(application) {
 
-    val readAllData: LiveData<List<User>>
+    val readAllUsers: LiveData<List<User>>
+    val readUsersWithPosts: LiveData<List<UserWithPosts>>
+
     private val repository: UserRepository
 
     init {
         val userDao = PandoraDatabase.getDatabase(application).userDao()
 
         repository = UserRepository(userDao)
-        readAllData = repository.readAllData
+        readAllUsers = repository.readAllData
+        readUsersWithPosts = repository.readUsersWithPosts
     }
 
-    fun addUser(user: User){
-        viewModelScope.launch(Dispatchers.IO){
+
+    fun addUser(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.addUser(user)
         }
     }
 
-    fun login(username: String, passwordSha256: String): User{
+    fun login(username: String, passwordSha256: String): User {
         return repository.login(username, passwordSha256)
     }
 
-    fun isTaken(username: String): Boolean{
+    fun isTaken(username: String): Boolean {
         return repository.isTaken(username)
     }
 }

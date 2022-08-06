@@ -56,6 +56,7 @@ abstract class PandoraDatabase : RoomDatabase() {
             val userNonAdmin = User(
                 0,
                 "nonadmin",
+                "nonadmin@gmail.com",
                 "nonadmin123".sha256(),
                 LocalDate.now(),
                 false
@@ -63,11 +64,11 @@ abstract class PandoraDatabase : RoomDatabase() {
             val userAdmin = User(
                 0,
                 "admin",
+                "admin@gmail.com",
                 "admin123".sha256(),
                 LocalDate.now(),
                 true
             )
-            println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
             userDao.addUser(userNonAdmin)
             userDao.addUser(userAdmin)
 
@@ -92,6 +93,10 @@ abstract class PandoraDatabase : RoomDatabase() {
                 LocalDate.now()
             )
 
+            userDao.addPost(post1)
+            userDao.addPost(post1)
+            userDao.addPost(post1)
+            userDao.addPost(post1)
             userDao.addPost(post1)
             userDao.addPost(post2)
         }

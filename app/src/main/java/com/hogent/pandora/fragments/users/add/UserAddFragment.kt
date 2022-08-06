@@ -73,6 +73,7 @@ class UserAddFragment : Fragment() {
     private fun  insertDataToDatabase(view: View) {
 
         val username = view.findViewById<EditText>(R.id.username).text.toString()
+        val email = view.findViewById<EditText>(R.id.email).text.toString()
         val password = view.findViewById<EditText>(R.id.password).text.toString()
         val admin = view.findViewById<CheckBox>(R.id.admin).isChecked
         val birthdate = view.findViewById<DatePicker>(R.id.birthdate)
@@ -94,6 +95,7 @@ class UserAddFragment : Fragment() {
                 User(
                     0,
                     username,
+                    email,
                     password.sha256(),
                     LocalDate.of(year, Month.of(month), day),
                     admin,
