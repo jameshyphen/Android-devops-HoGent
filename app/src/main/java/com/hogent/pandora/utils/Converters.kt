@@ -1,6 +1,7 @@
 package com.hogent.pandora.utils
 
 import androidx.room.TypeConverter
+import com.google.gson.Gson
 import java.time.LocalDate
 
 class Converters {
@@ -13,4 +14,11 @@ class Converters {
     fun dateToTimestamp(date: LocalDate?): String? {
         return date?.toString()
     }
+
+    @TypeConverter
+    fun listToJson(value: List<Int>?) = Gson().toJson(value)
+
+    @TypeConverter
+    fun jsonToList(value: String) = Gson().fromJson(value, Array<Int>::class.java).toList()
+
 }

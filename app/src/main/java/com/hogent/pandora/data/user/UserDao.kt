@@ -9,22 +9,31 @@ import com.hogent.pandora.data.post.UserWithPosts
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addUser(user: User)
+    fun addUser(user: User)
 
-    @Query("SELECT * FROM user_table ORDER BY userId ASC")
+    @Query("SELECT * FROM user ORDER BY userId ASC")
     fun readAllData(): LiveData<List<User>>
 
-    @Query("SELECT EXISTS(SELECT * FROM user_table WHERE userName=:userName)")
+    @Query("SELECT EXISTS(SELECT * FROM user WHERE userName=:userName)")
     fun isTaken(userName: String): Boolean
 
-    @Query("SELECT * FROM user_table WHERE userName=:userName AND password=:password")
+    @Query("SELECT * FROM user WHERE userName=:userName")
+    fun getByUsername(userName: String): User
+
+    @Query("SELECT * FROM user WHERE userName=:userName AND password=:password")
     fun login(userName: String, password: String): User
 
     @Transaction
-    @Query("SELECT * FROM user_table ORDER BY userId ASC")
+    @Query("SELECT * FROM user ORDER BY userId ASC")
     fun readUsersWithPosts(): List<UserWithPosts>
 
     @Transaction
     @Insert
-    fun addPost(post: Post?): Int
+    fun addPost(post: Post)
+
+    @Query("DELETE FROM user")
+    fun nukeUsers()
+
+    @Query("DELETE FROM post")
+    fun nukePosts()
 }

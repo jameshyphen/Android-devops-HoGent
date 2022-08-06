@@ -26,7 +26,7 @@ import java.time.LocalDate
 import java.time.Month
 
 
-class AddFragment : Fragment() {
+class UserAddFragment : Fragment() {
 
     private lateinit var mUserViewModel: UserViewModel
 

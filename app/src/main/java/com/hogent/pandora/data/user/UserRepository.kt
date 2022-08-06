@@ -8,11 +8,11 @@ class UserRepository(private val userDao: UserDao) {
 
     val readUsersWithPosts: List<UserWithPosts> = userDao.readUsersWithPosts()
 
-    suspend fun addUser(user: User){
+    fun addUser(user: User) {
         userDao.addUser(user)
     }
 
-    fun login(username: String, passwordSha256: String): User{
+    fun login(username: String, passwordSha256: String): User {
         return userDao.login(username, passwordSha256)
     }
 

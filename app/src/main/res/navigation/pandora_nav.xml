@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/userAddFragment"
-        android:name="com.hogent.pandora.fragments.users.add.AddFragment"
+        android:name="com.hogent.pandora.fragments.users.add.UserAddFragment"
         android:label="AddFragment" >
         <action
             android:id="@+id/action_addFragment_to_listFragment"

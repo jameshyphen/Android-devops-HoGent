@@ -4,10 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDate
 
-@Entity(tableName = "post_table")
+@Entity
 data class Post(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val postId: Int,
     val userCreatorId: Int,
     val content: String,
     val usersFavorite: List<Int>,
