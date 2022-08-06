@@ -16,7 +16,7 @@ import com.hogent.pandora.data.user.UserAuthentication
 import com.hogent.pandora.data.user.UserViewModel
 
 
-class ListFragment : Fragment() {
+class UserListFragment : Fragment() {
 
     private lateinit var mUserViewModel: UserViewModel
 
@@ -31,8 +31,8 @@ class ListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_user_list, container, false)
 
         // RecyclerView
-        val adapter = ListAdapter()
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        val adapter = UserListAdapter()
+        val recyclerView = view.findViewById<RecyclerView>(R.id.userRecyclerView)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -43,7 +43,7 @@ class ListFragment : Fragment() {
 
         })
 
-        view.findViewById<FloatingActionButton>(R.id.floatingActionButton).setOnClickListener{
+        view.findViewById<FloatingActionButton>(R.id.userAddFloatingActionButton).setOnClickListener{
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
 

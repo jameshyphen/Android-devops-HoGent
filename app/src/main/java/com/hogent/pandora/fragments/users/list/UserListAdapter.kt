@@ -1,4 +1,4 @@
-package com.hogent.pandora.fragments.post.list
+package com.hogent.pandora.fragments.users.list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,7 @@ import com.hogent.pandora.data.user.User
 import java.time.LocalDate
 import java.time.Period
 
-class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
+class UserListAdapter: RecyclerView.Adapter<UserListAdapter.MyViewHolder>() {
     private var userList = emptyList<User>()
 
     class MyViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
@@ -23,7 +23,7 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = userList[position]
-        holder.itemView.findViewById<TextView>(R.id.txt_id).text = currentItem.id.toString()
+        holder.itemView.findViewById<TextView>(R.id.txt_id).text = currentItem.userId.toString()
         holder.itemView.findViewById<TextView>(R.id.txt_username).text = currentItem.userName
         holder.itemView.findViewById<TextView>(R.id.txt_age).text = Period.between(currentItem.birthdate, LocalDate.now()).years.toString()
     }

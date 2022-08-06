@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
 import com.hogent.pandora.R
+import com.hogent.pandora.data.post.Post
 import com.hogent.pandora.data.user.User
 import com.hogent.pandora.data.user.UserAuthentication
 import com.hogent.pandora.data.user.UserViewModel
@@ -69,7 +70,7 @@ class AddFragment : Fragment() {
         return view
     }
 
-    private fun insertDataToDatabase(view: View) {
+    private fun  insertDataToDatabase(view: View) {
 
         val username = view.findViewById<EditText>(R.id.username).text.toString()
         val password = view.findViewById<EditText>(R.id.password).text.toString()
@@ -95,7 +96,7 @@ class AddFragment : Fragment() {
                     username,
                     password.sha256(),
                     LocalDate.of(year, Month.of(month), day),
-                    admin
+                    admin,
                 )
             )
             Toast.makeText(context, "Sucessfully added!", Toast.LENGTH_LONG).show()

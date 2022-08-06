@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/userListFragment"
-        android:name="com.hogent.pandora.fragments.users.list.ListFragment"
+        android:name="com.hogent.pandora.fragments.users.list.UserListFragment"
         android:label="ListFragment" >
         <action
             android:id="@+id/action_listFragment_to_addFragment"

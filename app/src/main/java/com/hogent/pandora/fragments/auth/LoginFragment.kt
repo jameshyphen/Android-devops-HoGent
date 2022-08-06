@@ -1,7 +1,6 @@
 package com.hogent.pandora.fragments.auth
 
 import android.os.Bundle
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +14,9 @@ import androidx.navigation.fragment.findNavController
 import com.hogent.pandora.R
 import com.hogent.pandora.data.user.User
 import com.hogent.pandora.data.user.UserAuthentication
-import com.hogent.pandora.data.user.UserDatabase
 import com.hogent.pandora.data.user.UserViewModel
 import com.hogent.pandora.utils.inputCheck
 import com.hogent.pandora.utils.sha256
-import kotlin.concurrent.thread
 
 class LoginFragment : Fragment() {
 
