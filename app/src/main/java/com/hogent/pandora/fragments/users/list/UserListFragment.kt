@@ -43,7 +43,7 @@ class UserListFragment : Fragment() {
         })
 
         view.findViewById<FloatingActionButton>(R.id.userAddFloatingActionButton).setOnClickListener{
-            findNavController().navigate(R.id.action_listFragment_to_addFragment)
+            findNavController().navigate(R.id.action_userListFragment_to_userAddFragment)
         }
 
         return view

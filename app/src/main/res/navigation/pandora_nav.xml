@@ -6,32 +6,6 @@
     app:startDestination="@id/menuFragment">
 
     <fragment
-        android:id="@+id/userListFragment"
-        android:name="com.hogent.pandora.fragments.users.list.UserListFragment"
-        android:label="ListFragment" >
-        <action
-            android:id="@+id/action_listFragment_to_addFragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@animator/nav_default_exit_anim"
-            app:destination="@id/userAddFragment" />
-        <action
-            android:id="@+id/action_userListFragment_to_postListFragment"
-            app:destination="@id/postListFragment" />
-        <action
-            android:id="@+id/action_userListFragment_to_userViewFragment"
-            app:destination="@id/userViewFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/userAddFragment"
-        android:name="com.hogent.pandora.fragments.users.add.UserAddFragment"
-        android:label="AddFragment" >
-        <action
-            android:id="@+id/action_addFragment_to_listFragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@animator/nav_default_exit_anim"
-            app:destination="@id/userListFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/loginFragment"
         android:name="com.hogent.pandora.fragments.auth.LoginFragment"
         android:label="fragment_login"
@@ -46,20 +20,8 @@
         android:label="fragment_post"
         tools:layout="@layout/fragment_post_list" >
         <action
-            android:id="@+id/action_postListFragment_to_postAddFragment"
-            app:destination="@id/postAddFragment" />
-        <action
             android:id="@+id/action_postListFragment_to_postViewFragment"
             app:destination="@id/postViewFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/postAddFragment"
-        android:name="com.hogent.pandora.PostAddFragment"
-        android:label="fragment_post_add"
-        tools:layout="@layout/fragment_post_add" >
-        <action
-            android:id="@+id/action_postAddFragment_to_postListFragment"
-            app:destination="@id/postListFragment" />
     </fragment>
     <fragment
         android:id="@+id/postViewFragment"
@@ -76,23 +38,14 @@
         android:label="fragment_user_view"
         tools:layout="@layout/fragment_user_view" >
         <action
-            android:id="@+id/action_userViewFragment_to_userEditFragment"
-            app:destination="@id/userEditFragment" />
+            android:id="@+id/action_userViewFragment_to_postListFragment"
+            app:destination="@id/postListFragment" />
+        <action
+            android:id="@+id/action_userViewFragment_to_userUpdateFragment"
+            app:destination="@id/userUpdateFragment" />
         <action
             android:id="@+id/action_userViewFragment_to_userListFragment"
             app:destination="@id/userListFragment" />
-        <action
-            android:id="@+id/action_userViewFragment_to_postListFragment"
-            app:destination="@id/postListFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/userEditFragment"
-        android:name="com.hogent.pandora.UserEditFragment"
-        android:label="fragment_user_edit"
-        tools:layout="@layout/fragment_user_edit" >
-        <action
-            android:id="@+id/action_userEditFragment_to_userViewFragment"
-            app:destination="@id/userViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
@@ -103,10 +56,43 @@
             android:id="@+id/action_menuFragment_to_postListFragment"
             app:destination="@id/postListFragment" />
         <action
-            android:id="@+id/action_menuFragment_to_userListFragment"
-            app:destination="@id/userListFragment" />
-        <action
             android:id="@+id/action_menuFragment_to_userViewFragment"
             app:destination="@id/userViewFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_userListFragment"
+            app:destination="@id/userListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userUpdateFragment"
+        android:name="com.hogent.pandora.fragments.users.update.UserUpdateFragment"
+        android:label="fragment_user_update"
+        tools:layout="@layout/fragment_user_update" >
+        <action
+            android:id="@+id/action_userUpdateFragment_to_userViewFragment"
+            app:destination="@id/userViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userAddFragment"
+        android:name="com.hogent.pandora.fragments.users.add.UserAddFragment"
+        android:label="fragment_user_add"
+        tools:layout="@layout/fragment_user_add" >
+        <action
+            android:id="@+id/action_userAddFragment_to_userListFragment"
+            app:destination="@id/userListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userListFragment"
+        android:name="com.hogent.pandora.fragments.users.list.UserListFragment"
+        android:label="fragment_user_list"
+        tools:layout="@layout/fragment_user_list" >
+        <action
+            android:id="@+id/action_userListFragment_to_userViewFragment"
+            app:destination="@id/userViewFragment" />
+        <action
+            android:id="@+id/action_userListFragment_to_userAddFragment"
+            app:destination="@id/userAddFragment" />
+        <action
+            android:id="@+id/action_userListFragment_to_postListFragment"
+            app:destination="@id/postListFragment" />
     </fragment>
 </navigation>

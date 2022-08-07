@@ -12,6 +12,10 @@ class UserRepository(private val userDao: UserDao) {
         userDao.addUser(user)
     }
 
+    fun updateUser(user: User) {
+        userDao.updateUser(user)
+    }
+
     fun login(username: String, passwordSha256: String): User {
         return userDao.login(username, passwordSha256)
     }

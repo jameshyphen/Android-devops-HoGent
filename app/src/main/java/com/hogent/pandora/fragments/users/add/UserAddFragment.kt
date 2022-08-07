@@ -102,7 +102,7 @@ class UserAddFragment : Fragment() {
                 )
             )
             Toast.makeText(context, "Sucessfully added!", Toast.LENGTH_LONG).show()
-            findNavController().navigate(R.id.action_addFragment_to_listFragment)
+            findNavController().navigate(R.id.action_userAddFragment_to_userListFragment)
         }
     }
 }

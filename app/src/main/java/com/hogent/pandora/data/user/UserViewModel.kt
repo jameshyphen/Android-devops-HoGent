@@ -31,6 +31,12 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun updateUser(user: User) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.updateUser(user)
+        }
+    }
+
     fun login(username: String, passwordSha256: String): User {
         return repository.login(username, passwordSha256)
     }

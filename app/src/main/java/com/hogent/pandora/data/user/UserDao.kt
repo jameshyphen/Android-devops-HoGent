@@ -11,6 +11,9 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addUser(user: User)
 
+    @Update
+    fun updateUser(user: User)
+
     @Query("SELECT * FROM user ORDER BY userId ASC")
     fun readAllData(): LiveData<List<User>>
 
