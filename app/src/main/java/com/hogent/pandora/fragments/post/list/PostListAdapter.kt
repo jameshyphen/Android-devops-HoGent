@@ -1,12 +1,16 @@
 package com.hogent.pandora.fragments.post.list
 
+import android.content.res.ColorStateList
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.hogent.pandora.R
 import com.hogent.pandora.data.post.Post
 import com.hogent.pandora.data.user.User
@@ -43,6 +47,11 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
 //        val mIcon = BitmapFactory.decodeStream(imgUrl.openConnection().getInputStream())
 //        imageView.setImageBitmap(mIcon)
 
+        if(userLikedPost(user, currentPost)){
+            holder.itemView.findViewById<MaterialButton>(R.id.btn_like).iconTint = ColorStateList.valueOf(
+                Color.rgb(255, 50, 50))
+        }
+
         Picasso.get()
             .load(url)
             .resize(25, 25)
@@ -63,5 +72,9 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
         this.postList = posts
         this.userList = users
         notifyDataSetChanged()
+    }
+
+    private fun userLikedPost(user: User, post: Post): Boolean{
+        return post.usersFavorite.contains(user.userId)
     }
 }
