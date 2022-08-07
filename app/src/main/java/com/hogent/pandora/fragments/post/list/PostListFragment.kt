@@ -33,6 +33,7 @@ class PostListFragment : Fragment() {
         if (!UserAuthentication.isLoggedIn()) {
             Toast.makeText(context, "You've been logged out.", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.loginFragment)
+            return view
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {

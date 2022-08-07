@@ -9,6 +9,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
+import androidx.navigation.fragment.findNavController
+import com.hogent.pandora.data.user.UserAuthentication
 import com.hogent.pandora.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -40,8 +43,13 @@ class MainActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        if(item.itemId == R.id.action_logout){
+            UserAuthentication.logout()
+            val navController = findNavController(R.id.nav_host_fragment_content_main)
+            navController.navigate(R.id.loginFragment)
+        }
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_logout -> UserAuthentication.isLoggedIn()
             else -> super.onOptionsItemSelected(item)
         }
     }

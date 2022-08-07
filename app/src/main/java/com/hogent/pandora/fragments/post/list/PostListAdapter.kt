@@ -62,6 +62,10 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
         holder.itemView.findViewById<TextView>(R.id.txt_datecreated).text =
             currentPost.dateAdded.format(formatter)
         holder.itemView.findViewById<TextView>(R.id.txt_content).text = currentPost.content
+
+        holder.itemView.findViewById<MaterialButton>(R.id.btn_like).setOnClickListener{
+            likeOrDislikePost(user, currentPost)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -76,5 +80,9 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
 
     private fun userLikedPost(user: User, post: Post): Boolean{
         return post.usersFavorite.contains(user.userId)
+    }
+
+    private fun likeOrDislikePost(user:User, post:Post){
+
     }
 }
