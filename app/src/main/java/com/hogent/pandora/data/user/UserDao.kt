@@ -3,13 +3,15 @@ package com.hogent.pandora.data.user
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.hogent.pandora.data.post.Post
+import com.hogent.pandora.data.post.PostComment
+import com.hogent.pandora.data.post.PostWithComments
 import com.hogent.pandora.data.post.UserWithPosts
 
 @Dao
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addUser(user: User)
+    fun addUser(user: User): Long
 
     @Update
     fun updateUser(user: User)
@@ -32,7 +34,7 @@ interface UserDao {
 
     @Transaction
     @Insert
-    fun addPost(post: Post)
+    fun addPost(post: Post): Long
 
     @Transaction
     @Update
@@ -43,4 +45,15 @@ interface UserDao {
 
     @Query("DELETE FROM post")
     fun nukePosts()
+
+    @Query("DELETE FROM postcomment")
+    fun nukeComments()
+
+    @Transaction
+    @Query("SELECT * FROM post ORDER BY postId ASC")
+    fun readPostWithComments(): LiveData<List<PostWithComments>>
+
+    @Transaction
+    @Insert
+    fun addComment(comment: PostComment): Long
 }

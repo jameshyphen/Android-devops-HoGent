@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_postListFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_postListFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
     </fragment>
     <fragment
         android:id="@+id/postViewFragment"
@@ -96,6 +99,15 @@
             app:destination="@id/userAddFragment" />
         <action
             android:id="@+id/action_userListFragment_to_postListFragment"
+            app:destination="@id/postListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="com.hogent.pandora.fragments.comment.CommentFragment"
+        android:label="fragment_comment"
+        tools:layout="@layout/fragment_comment" >
+        <action
+            android:id="@+id/action_commentFragment_to_postListFragment"
             app:destination="@id/postListFragment" />
     </fragment>
 </navigation>

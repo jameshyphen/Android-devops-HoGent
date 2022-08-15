@@ -2,15 +2,18 @@ package com.hogent.pandora.data.user
 
 import androidx.lifecycle.LiveData
 import com.hogent.pandora.data.post.Post
+import com.hogent.pandora.data.post.PostComment
+import com.hogent.pandora.data.post.PostWithComments
 import com.hogent.pandora.data.post.UserWithPosts
 
 class UserRepository(private val userDao: UserDao) {
     val readAllData: LiveData<List<User>> = userDao.readAllData()
 
     val readUsersWithPosts: LiveData<List<UserWithPosts>> = userDao.readUsersWithPosts()
+    val readPostWithComments: LiveData<List<PostWithComments>> = userDao.readPostWithComments()
 
-    fun addUser(user: User) {
-        userDao.addUser(user)
+    fun addUser(user: User): Long {
+        return userDao.addUser(user)
     }
 
     fun updateUser(user: User) {
@@ -25,8 +28,12 @@ class UserRepository(private val userDao: UserDao) {
         return userDao.isTaken(username)
     }
 
-    fun addPost(post: Post) {
+    fun addPost(post: Post): Long {
         return userDao.addPost(post)
+    }
+
+    fun addComment(comment: PostComment): Long{
+        return userDao.addComment(comment)
     }
 
     fun updatePost(post: Post){

@@ -58,19 +58,25 @@ class PostListFragment : Fragment() {
         view.findViewById<TextView>(R.id.txt_username_add).text = user.userName
 
         val postListAdapter = PostListAdapter()
-        val postListRecycler = view.findViewById<RecyclerView>(R.id.postListRecyclerView)
+        val postListRecycler = view.findViewById<RecyclerView>(R.id.commentListRecyclerView)
         postListRecycler.adapter = postListAdapter
         postListRecycler.layoutManager = LinearLayoutManager(requireContext())
 
         mUserViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         mUserViewModel.readUsersWithPosts.observe(viewLifecycleOwner, Observer { usersWithPosts ->
-            postListAdapter.setData(
+            postListAdapter.setUserWithPosts(
                 usersWithPosts
                     .flatMap { up -> up.posts }
                     .sortedBy { up -> up.dateAdded }
                     .asReversed(),
                 usersWithPosts.map { up -> up.user },
                 mUserViewModel
+            )
+        })
+
+        mUserViewModel.readPostWithComments.observe(viewLifecycleOwner, Observer { postsWithComments ->
+            postListAdapter.setPostsWithComments(
+                postsWithComments.flatMap { el -> el.comments }
             )
         })
 

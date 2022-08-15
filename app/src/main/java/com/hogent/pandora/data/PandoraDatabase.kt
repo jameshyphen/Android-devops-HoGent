@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.hogent.pandora.data.post.Post
+import com.hogent.pandora.data.post.PostComment
 import com.hogent.pandora.data.user.User
 import com.hogent.pandora.data.user.UserDao
 import com.hogent.pandora.utils.Converters
@@ -15,7 +16,7 @@ import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 
 
-@Database(entities = [User::class, Post::class], version = 1, exportSchema = false)
+@Database(entities = [User::class, Post::class, PostComment::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class PandoraDatabase : RoomDatabase() {
 
@@ -52,6 +53,7 @@ abstract class PandoraDatabase : RoomDatabase() {
             // Clean db
             userDao.nukeUsers()
             userDao.nukePosts()
+            userDao.nukeComments()
 
             val userNonAdmin = User(
                 0,
@@ -108,10 +110,29 @@ abstract class PandoraDatabase : RoomDatabase() {
                 false,
                 LocalDate.now()
             )
-            userDao.addPost(post1)
+            val idPost1 = userDao.addPost(post1)
             userDao.addPost(post2)
             userDao.addPost(post3)
             userDao.addPost(post4)
+
+
+            val comment1 = PostComment(
+                0,
+                idPost1.toInt(),
+                "Me too! I love minecraft :)",
+                listOf(user1.userId),
+                LocalDate.now()
+            )
+            val comment2 = PostComment(
+                0,
+                idPost1.toInt(),
+                "Same but i dont have free time...",
+                listOf(user2.userId),
+                LocalDate.now()
+            )
+
+            userDao.addComment(comment1)
+            userDao.addComment(comment2)
         }
     }
 }

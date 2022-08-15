@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.hogent.pandora.R
 import com.hogent.pandora.data.post.Post
+import com.hogent.pandora.data.post.PostComment
 import com.hogent.pandora.data.user.User
 import com.hogent.pandora.data.user.UserViewModel
 import com.hogent.pandora.utils.md5
@@ -21,6 +22,7 @@ import java.time.format.DateTimeFormatter
 class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
     private var postList = emptyList<Post>()
     private var userList = emptyList<User>()
+    private var commentList = emptyList<PostComment>()
     private lateinit var mUserViewModel: UserViewModel
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -63,6 +65,14 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
             holder.itemView.findViewById<MaterialButton>(R.id.btn_like).text = "0"
         }
 
+        var currentPostComments = commentList.filter { el -> el.postParentId == currentPost.postId }
+
+        if(currentPostComments != null && currentPostComments.isNotEmpty()){
+            holder.itemView.findViewById<MaterialButton>(R.id.btn_comment).text = currentPostComments.size.toString()
+        } else {
+            holder.itemView.findViewById<MaterialButton>(R.id.btn_comment).text = "0"
+        }
+
         holder.itemView.findViewById<MaterialButton>(R.id.btn_like).setOnClickListener {
             if (currentPost.usersFavorite.contains(user.userId)) {
                 currentPost =
@@ -95,10 +105,15 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
         return postList.size
     }
 
-    fun setData(posts: List<Post>, users: List<User>, viewModel: UserViewModel) {
+    fun setUserWithPosts(posts: List<Post>, users: List<User>, viewModel: UserViewModel) {
         this.postList = posts
         this.userList = users
         this.mUserViewModel = viewModel
+        notifyDataSetChanged()
+    }
+
+    fun setPostsWithComments(comments: List<PostComment>){
+        this.commentList = comments
         notifyDataSetChanged()
     }
 

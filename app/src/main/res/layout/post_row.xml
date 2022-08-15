@@ -89,6 +89,7 @@
         android:paddingEnd="4dp"
         android:singleLine="true"
         android:textAllCaps="true"
+        android:text="0"
         app:backgroundTint="#fc0"
         app:icon="@drawable/ic_comment"
         app:iconGravity="textStart"
