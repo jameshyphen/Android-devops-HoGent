@@ -57,6 +57,12 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
             currentPost.dateAdded.format(formatter)
         holder.itemView.findViewById<TextView>(R.id.txt_content).text = currentPost.content
 
+        if(currentPost.usersFavorite != null && currentPost.usersFavorite.isNotEmpty()){
+            holder.itemView.findViewById<MaterialButton>(R.id.btn_like).text = currentPost.usersFavorite.size.toString()
+        } else {
+            holder.itemView.findViewById<MaterialButton>(R.id.btn_like).text = "0"
+        }
+
         holder.itemView.findViewById<MaterialButton>(R.id.btn_like).setOnClickListener {
             if (currentPost.usersFavorite.contains(user.userId)) {
                 currentPost =
