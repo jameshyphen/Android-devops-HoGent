@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.hogent.pandora.data.PandoraDatabase
+import com.hogent.pandora.data.post.Post
 import com.hogent.pandora.data.post.UserWithPosts
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,7 +25,6 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
         readUsersWithPosts = repository.readUsersWithPosts
     }
 
-
     fun addUser(user: User) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addUser(user)
@@ -43,5 +43,13 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
 
     fun isTaken(username: String): Boolean {
         return repository.isTaken(username)
+    }
+
+    fun addPost(post: Post) {
+        return repository.addPost(post)
+    }
+
+    fun updatePost(post: Post) {
+        return repository.updatePost(post)
     }
 }

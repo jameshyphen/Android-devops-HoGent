@@ -1,6 +1,7 @@
 package com.hogent.pandora.fragments.post.list
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,15 +15,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 import com.hogent.pandora.R
+import com.hogent.pandora.data.post.Post
 import com.hogent.pandora.data.user.UserAuthentication
 import com.hogent.pandora.data.user.UserViewModel
 import com.hogent.pandora.utils.md5
 import com.squareup.picasso.Picasso
+import java.time.LocalDate
 
 class PostListFragment : Fragment() {
 
     private lateinit var mUserViewModel: UserViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +42,7 @@ class PostListFragment : Fragment() {
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            findNavController().navigate(R.id.postListFragment)
+            findNavController().navigate(R.id.action_postListFragment_to_menuFragment)
         }
         val user = UserAuthentication.user!!
         val hash = user.email.trim().lowercase().md5()
@@ -52,7 +57,6 @@ class PostListFragment : Fragment() {
 
         view.findViewById<TextView>(R.id.txt_username_add).text = user.userName
 
-
         val postListAdapter = PostListAdapter()
         val postListRecycler = view.findViewById<RecyclerView>(R.id.postListRecyclerView)
         postListRecycler.adapter = postListAdapter
@@ -65,9 +69,30 @@ class PostListFragment : Fragment() {
                     .flatMap { up -> up.posts }
                     .sortedBy { up -> up.dateAdded }
                     .asReversed(),
-                usersWithPosts.map { up -> up.user }
+                usersWithPosts.map { up -> up.user },
+                mUserViewModel
             )
         })
+
+        view.findViewById<MaterialButton>(R.id.btn_post_add).setOnClickListener {
+            val postContent =
+                view.findViewById<TextView>(R.id.txt_content_add).text.trim().toString()
+            if (TextUtils.isEmpty(postContent)) {
+                Toast.makeText(context, "Cannot create an empty post", Toast.LENGTH_LONG).show()
+            } else {
+                val post = Post(
+                    postId = 0,
+                    userCreatorId = UserAuthentication.user!!.userId,
+                    content = postContent,
+                    usersFavorite = emptyList(),
+                    checkedByAdmin = false,
+                    dateAdded = LocalDate.now()
+                )
+
+                mUserViewModel.addPost(post)
+                view.findViewById<TextView>(R.id.txt_content_add).text = ""
+            }
+        }
 
         return view
     }

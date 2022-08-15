@@ -78,7 +78,7 @@ abstract class PandoraDatabase : RoomDatabase() {
             val post1 = Post(
                 0,
                 user1.userId,
-                "Prepopulated content for this post!",
+                "I really like playing videogames!",
                 listOf(user2.userId, user1.userId),
                 false,
                 LocalDate.now()
@@ -87,18 +87,31 @@ abstract class PandoraDatabase : RoomDatabase() {
             val post2 = Post(
                 0,
                 user2.userId,
-                "Prepopulated content for this post!",
-                listOf(user1.userId),
+                "Anyone down to go to the club tonight?",
+                listOf(user2.userId),
                 false,
                 LocalDate.now()
             )
-
-            userDao.addPost(post1)
-            userDao.addPost(post1)
-            userDao.addPost(post1)
-            userDao.addPost(post1)
+            val post3 = Post(
+                0,
+                user2.userId,
+                "I'm so bored",
+                listOf(),
+                false,
+                LocalDate.now()
+            )
+            val post4 = Post(
+                0,
+                user2.userId,
+                "Can someone recommend me music to listen to?",
+                listOf(),
+                false,
+                LocalDate.now()
+            )
             userDao.addPost(post1)
             userDao.addPost(post2)
+            userDao.addPost(post3)
+            userDao.addPost(post4)
         }
     }
 }

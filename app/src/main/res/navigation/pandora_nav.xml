@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_postListFragment_to_postViewFragment"
             app:destination="@id/postViewFragment" />
+        <action
+            android:id="@+id/action_postListFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/postViewFragment"

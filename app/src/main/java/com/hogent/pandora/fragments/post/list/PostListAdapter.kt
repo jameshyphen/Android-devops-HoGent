@@ -1,12 +1,10 @@
 package com.hogent.pandora.fragments.post.list
 
 import android.content.res.ColorStateList
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -14,28 +12,31 @@ import com.google.android.material.button.MaterialButton
 import com.hogent.pandora.R
 import com.hogent.pandora.data.post.Post
 import com.hogent.pandora.data.user.User
+import com.hogent.pandora.data.user.UserViewModel
 import com.hogent.pandora.utils.md5
 import com.squareup.picasso.Picasso
-import java.net.URL
 import java.time.format.DateTimeFormatter
 
 
 class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
     private var postList = emptyList<Post>()
     private var userList = emptyList<User>()
+    private lateinit var mUserViewModel: UserViewModel
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(
+        val viewHolder = MyViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.post_row, parent, false)
         )
+
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentPost = postList[position]
+        var currentPost = postList[position]
         val user = userList.find { user -> user.userId == currentPost.userCreatorId }
         var formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy")
 
@@ -43,14 +44,7 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
         val url = "https://www.gravatar.com/avatar/$hash?s=50"
         val imageView = holder.itemView.findViewById<ImageView>(R.id.user_avatar_post)
 
-//        val imgUrl = URL(url)
-//        val mIcon = BitmapFactory.decodeStream(imgUrl.openConnection().getInputStream())
-//        imageView.setImageBitmap(mIcon)
-
-        if(userLikedPost(user, currentPost)){
-            holder.itemView.findViewById<MaterialButton>(R.id.btn_like).iconTint = ColorStateList.valueOf(
-                Color.rgb(255, 50, 50))
-        }
+        changeLikedPost(user, currentPost, holder)
 
         Picasso.get()
             .load(url)
@@ -63,8 +57,31 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
             currentPost.dateAdded.format(formatter)
         holder.itemView.findViewById<TextView>(R.id.txt_content).text = currentPost.content
 
-        holder.itemView.findViewById<MaterialButton>(R.id.btn_like).setOnClickListener{
-            likeOrDislikePost(user, currentPost)
+        holder.itemView.findViewById<MaterialButton>(R.id.btn_like).setOnClickListener {
+            if (currentPost.usersFavorite.contains(user.userId)) {
+                currentPost =
+                    currentPost.copy(usersFavorite = currentPost.usersFavorite.minus(user.userId))
+            } else {
+                currentPost =
+                    currentPost.copy(usersFavorite = currentPost.usersFavorite.plus(user.userId))
+            }
+            mUserViewModel.updatePost(currentPost)
+            postList = postList.filter { el -> el.postId != currentPost.postId }.plus(currentPost)
+            changeLikedPost(user, currentPost, holder)
+        }
+    }
+
+    private fun changeLikedPost(user: User, post: Post, holder: PostListAdapter.MyViewHolder) {
+        if (userLikedPost(user, post)) {
+            holder.itemView.findViewById<MaterialButton>(R.id.btn_like).iconTint =
+                ColorStateList.valueOf(
+                    Color.rgb(255, 50, 50)
+                )
+        } else {
+            holder.itemView.findViewById<MaterialButton>(R.id.btn_like).iconTint =
+                ColorStateList.valueOf(
+                    Color.rgb(255, 255, 255)
+                )
         }
     }
 
@@ -72,17 +89,14 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
         return postList.size
     }
 
-    fun setData(posts: List<Post>, users: List<User>) {
+    fun setData(posts: List<Post>, users: List<User>, viewModel: UserViewModel) {
         this.postList = posts
         this.userList = users
+        this.mUserViewModel = viewModel
         notifyDataSetChanged()
     }
 
-    private fun userLikedPost(user: User, post: Post): Boolean{
+    private fun userLikedPost(user: User, post: Post): Boolean {
         return post.usersFavorite.contains(user.userId)
-    }
-
-    private fun likeOrDislikePost(user:User, post:Post){
-
     }
 }

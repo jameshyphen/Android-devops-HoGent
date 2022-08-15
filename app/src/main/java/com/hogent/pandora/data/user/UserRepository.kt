@@ -1,6 +1,7 @@
 package com.hogent.pandora.data.user
 
 import androidx.lifecycle.LiveData
+import com.hogent.pandora.data.post.Post
 import com.hogent.pandora.data.post.UserWithPosts
 
 class UserRepository(private val userDao: UserDao) {
@@ -22,5 +23,13 @@ class UserRepository(private val userDao: UserDao) {
 
     fun isTaken(username: String): Boolean {
         return userDao.isTaken(username)
+    }
+
+    fun addPost(post: Post) {
+        return userDao.addPost(post)
+    }
+
+    fun updatePost(post: Post){
+        return userDao.updatePost(post)
     }
 }

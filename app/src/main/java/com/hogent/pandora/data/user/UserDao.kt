@@ -34,6 +34,10 @@ interface UserDao {
     @Insert
     fun addPost(post: Post)
 
+    @Transaction
+    @Update
+    fun updatePost(post: Post)
+
     @Query("DELETE FROM user")
     fun nukeUsers()
 
