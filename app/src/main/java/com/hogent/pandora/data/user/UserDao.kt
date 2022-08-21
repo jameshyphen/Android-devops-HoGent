@@ -60,4 +60,7 @@ interface UserDao {
     @Transaction
     @Insert
     fun addComment(comment: PostComment): Long
+
+    @Update
+    fun updateComment(comment: PostComment)
 }

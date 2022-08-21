@@ -16,6 +16,7 @@ import com.hogent.pandora.R
 import com.hogent.pandora.data.post.Post
 import com.hogent.pandora.data.post.PostComment
 import com.hogent.pandora.data.user.User
+import com.hogent.pandora.data.user.UserAuthentication
 import com.hogent.pandora.data.user.UserViewModel
 import com.hogent.pandora.fragments.comment.CommentFragment
 import com.hogent.pandora.utils.md5
@@ -51,7 +52,7 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
         val url = "https://www.gravatar.com/avatar/$hash?s=50"
         val imageView = holder.itemView.findViewById<ImageView>(R.id.user_avatar_post)
 
-        changeLikedPost(user, currentPost, holder)
+        changeLikedPost(UserAuthentication.user!!, currentPost, holder)
 
         Picasso.get()
             .load(url)
@@ -81,16 +82,15 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
         }
 
         holder.itemView.findViewById<MaterialButton>(R.id.btn_like).setOnClickListener {
-            if (currentPost.usersFavorite.contains(user.userId)) {
+            if (currentPost.usersFavorite.contains(UserAuthentication.user!!.userId)) {
                 currentPost =
-                    currentPost.copy(usersFavorite = currentPost.usersFavorite.minus(user.userId))
+                    currentPost.copy(usersFavorite = currentPost.usersFavorite.minus(UserAuthentication.user!!.userId))
             } else {
                 currentPost =
-                    currentPost.copy(usersFavorite = currentPost.usersFavorite.plus(user.userId))
+                    currentPost.copy(usersFavorite = currentPost.usersFavorite.plus(UserAuthentication.user!!.userId))
             }
             mUserViewModel.updatePost(currentPost)
-            postList = postList.filter { el -> el.postId != currentPost.postId }.plus(currentPost)
-            changeLikedPost(user, currentPost, holder)
+            changeLikedPost(UserAuthentication.user!!, currentPost, holder)
         }
 
         holder.itemView.findViewById<MaterialButton>(R.id.btn_comment).setOnClickListener {

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.hogent.pandora.fragments.auth.LoginFragment"
-        android:label="fragment_login"
+        android:label="Login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_menuFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/postListFragment"
         android:name="com.hogent.pandora.fragments.post.list.PostListFragment"
-        android:label="fragment_post"
+        android:label="Post"
         tools:layout="@layout/fragment_post_list" >
         <action
             android:id="@+id/action_postListFragment_to_postViewFragment"
@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/postViewFragment"
         android:name="com.hogent.pandora.postViewFragment"
-        android:label="fragment_post_view"
+        android:label="Posts"
         tools:layout="@layout/fragment_post_view" >
         <action
             android:id="@+id/action_postViewFragment_to_postListFragment"
@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/userViewFragment"
         android:name="com.hogent.pandora.userViewFragment"
-        android:label="fragment_user_view"
+        android:label="Users"
         tools:layout="@layout/fragment_user_view" >
         <action
             android:id="@+id/action_userViewFragment_to_postListFragment"
@@ -56,7 +56,7 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.hogent.pandora.fragments.menu.MenuFragment"
-        android:label="fragment_menu"
+        android:label="Menu"
         tools:layout="@layout/fragment_menu" >
         <action
             android:id="@+id/action_menuFragment_to_postListFragment"
@@ -71,7 +71,7 @@
     <fragment
         android:id="@+id/userUpdateFragment"
         android:name="com.hogent.pandora.fragments.users.update.UserUpdateFragment"
-        android:label="fragment_user_update"
+        android:label="Update user"
         tools:layout="@layout/fragment_user_update" >
         <action
             android:id="@+id/action_userUpdateFragment_to_userViewFragment"
@@ -80,7 +80,7 @@
     <fragment
         android:id="@+id/userAddFragment"
         android:name="com.hogent.pandora.fragments.users.add.UserAddFragment"
-        android:label="fragment_user_add"
+        android:label="Add user"
         tools:layout="@layout/fragment_user_add" >
         <action
             android:id="@+id/action_userAddFragment_to_userListFragment"
@@ -89,7 +89,7 @@
     <fragment
         android:id="@+id/userListFragment"
         android:name="com.hogent.pandora.fragments.users.list.UserListFragment"
-        android:label="fragment_user_list"
+        android:label="Users"
         tools:layout="@layout/fragment_user_list" >
         <action
             android:id="@+id/action_userListFragment_to_userViewFragment"
@@ -104,7 +104,7 @@
     <fragment
         android:id="@+id/commentFragment"
         android:name="com.hogent.pandora.fragments.comment.CommentFragment"
-        android:label="fragment_comment"
+        android:label="Comments"
         tools:layout="@layout/fragment_comment" >
         <action
             android:id="@+id/action_commentFragment_to_postListFragment"

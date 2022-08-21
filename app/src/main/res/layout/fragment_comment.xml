@@ -12,26 +12,27 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
+        android:paddingRight="14dp"
+        android:background="@color/white"
+        android:paddingLeft="14dp"
         app:flow_verticalAlign="center"
         app:flow_horizontalAlign="center"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="-1dp">
 
-        <TextView
-            android:id="@+id/textView"
+        <EditText
+            android:id="@+id/txt_comment_content"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
             android:layout_weight="1"
             android:hint="Comment..." />
 
         <Button
-            android:id="@+id/button"
-            android:layout_width="24dp"
+            android:id="@+id/btn_add_comment"
             android:layout_height="wrap_content"
             app:icon="@drawable/ic_send"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_width="wrap_content"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

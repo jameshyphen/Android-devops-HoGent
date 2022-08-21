@@ -41,4 +41,9 @@ class UserRepository(private val userDao: UserDao) {
     fun updatePost(post: Post) {
         return userDao.updatePost(post)
     }
+
+    fun updateComment(comment: PostComment) {
+        return userDao.updateComment(comment)
+
+    }
 }

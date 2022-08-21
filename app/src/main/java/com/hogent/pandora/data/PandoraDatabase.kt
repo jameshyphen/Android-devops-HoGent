@@ -127,7 +127,7 @@ abstract class PandoraDatabase : RoomDatabase() {
             val comment2 = PostComment(
                 0,
                 idPost1.toInt(),
-                user1.userId,
+                user2.userId,
                 "Same but i dont have free time...",
                 listOf(user2.userId),
                 LocalDate.now()

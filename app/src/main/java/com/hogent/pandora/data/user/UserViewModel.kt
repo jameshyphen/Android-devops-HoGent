@@ -61,4 +61,8 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     fun updatePost(post: Post) {
         return repository.updatePost(post)
     }
+
+    fun updateComment(comment: PostComment) {
+        return repository.updateComment(comment)
+    }
 }

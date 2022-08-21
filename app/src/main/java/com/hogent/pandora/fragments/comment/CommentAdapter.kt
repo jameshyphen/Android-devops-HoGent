@@ -13,7 +13,9 @@ import com.hogent.pandora.R
 import com.hogent.pandora.data.post.Post
 import com.hogent.pandora.data.post.PostComment
 import com.hogent.pandora.data.user.User
+import com.hogent.pandora.data.user.UserAuthentication
 import com.hogent.pandora.data.user.UserViewModel
+import com.hogent.pandora.fragments.post.list.PostListAdapter
 import com.hogent.pandora.utils.md5
 import com.squareup.picasso.Picasso
 import java.time.format.DateTimeFormatter
@@ -63,6 +65,37 @@ class CommentAdapter : RecyclerView.Adapter<CommentAdapter.MyViewHolder>() {
         } else {
             holder.itemView.findViewById<MaterialButton>(R.id.btn_like).text = "0"
         }
+        changeLikedComment(UserAuthentication.user!!, currentComment, holder)
+        holder.itemView.findViewById<MaterialButton>(R.id.btn_like).setOnClickListener {
+            if (currentComment.usersFavorite.contains(UserAuthentication.user!!.userId)) {
+                currentComment =
+                    currentComment.copy(usersFavorite = currentComment.usersFavorite.minus(UserAuthentication.user!!.userId))
+            } else {
+                currentComment =
+                    currentComment.copy(usersFavorite = currentComment.usersFavorite.plus(UserAuthentication.user!!.userId))
+            }
+            mUserViewModel.updateComment(currentComment)
+            changeLikedComment(UserAuthentication.user!!, currentComment, holder)
+        }
+
+    }
+
+    private fun changeLikedComment(user: User, comment: PostComment, holder: CommentAdapter.MyViewHolder) {
+        if (userLikedcomment(user, comment)) {
+            holder.itemView.findViewById<MaterialButton>(R.id.btn_like).iconTint =
+                ColorStateList.valueOf(
+                    Color.rgb(255, 50, 50)
+                )
+        } else {
+            holder.itemView.findViewById<MaterialButton>(R.id.btn_like).iconTint =
+                ColorStateList.valueOf(
+                    Color.rgb(255, 255, 255)
+                )
+        }
+    }
+
+    private fun userLikedcomment(user: User, post: PostComment): Boolean {
+        return post.usersFavorite.contains(user.userId)
     }
 
     fun setData(
@@ -77,7 +110,7 @@ class CommentAdapter : RecyclerView.Adapter<CommentAdapter.MyViewHolder>() {
         notifyDataSetChanged()
     }
 
-    private fun userLikedPost(user: User, post: Post): Boolean {
+    private fun userLikedcomment(user: User, post: Post): Boolean {
         return post.usersFavorite.contains(user.userId)
     }
 
