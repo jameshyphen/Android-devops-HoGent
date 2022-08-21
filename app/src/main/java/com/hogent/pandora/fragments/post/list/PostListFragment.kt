@@ -10,8 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +27,6 @@ import java.time.LocalDate
 class PostListFragment : Fragment() {
 
     private lateinit var mUserViewModel: UserViewModel
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,12 +57,13 @@ class PostListFragment : Fragment() {
         view.findViewById<TextView>(R.id.txt_username_add).text = user.userName
 
         val postListAdapter = PostListAdapter()
-        val postListRecycler = view.findViewById<RecyclerView>(R.id.commentListRecyclerView)
+        postListAdapter.setOnclickFun(::onCommentClicked)
+        val postListRecycler = view.findViewById<RecyclerView>(R.id.postListRecyclerView)
         postListRecycler.adapter = postListAdapter
         postListRecycler.layoutManager = LinearLayoutManager(requireContext())
 
         mUserViewModel = ViewModelProvider(this)[UserViewModel::class.java]
-        mUserViewModel.readUsersWithPosts.observe(viewLifecycleOwner, Observer { usersWithPosts ->
+        mUserViewModel.readUsersWithPosts.observe(viewLifecycleOwner) { usersWithPosts ->
             postListAdapter.setUserWithPosts(
                 usersWithPosts
                     .flatMap { up -> up.posts }
@@ -72,13 +72,13 @@ class PostListFragment : Fragment() {
                 usersWithPosts.map { up -> up.user },
                 mUserViewModel
             )
-        })
+        }
 
-        mUserViewModel.readPostWithComments.observe(viewLifecycleOwner, Observer { postsWithComments ->
+        mUserViewModel.readPostWithComments.observe(viewLifecycleOwner) { postsWithComments ->
             postListAdapter.setPostsWithComments(
                 postsWithComments.flatMap { el -> el.comments }
             )
-        })
+        }
 
         view.findViewById<MaterialButton>(R.id.btn_post_add).setOnClickListener {
             val postContent =
@@ -101,5 +101,12 @@ class PostListFragment : Fragment() {
         }
 
         return view
+    }
+
+    fun onCommentClicked(postId: Int) {
+        val args = Bundle()
+        args.putInt("postId", postId)
+        findNavController()
+            .navigate(R.id.action_postListFragment_to_commentFragment, args)
     }
 }

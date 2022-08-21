@@ -11,6 +11,8 @@ class UserRepository(private val userDao: UserDao) {
 
     val readUsersWithPosts: LiveData<List<UserWithPosts>> = userDao.readUsersWithPosts()
     val readPostWithComments: LiveData<List<PostWithComments>> = userDao.readPostWithComments()
+    fun readPostWithCommentsByPostId(postId: Int): LiveData<List<PostWithComments>> =
+        userDao.readPostWithCommentsByPostId(postId)
 
     fun addUser(user: User): Long {
         return userDao.addUser(user)
@@ -32,11 +34,11 @@ class UserRepository(private val userDao: UserDao) {
         return userDao.addPost(post)
     }
 
-    fun addComment(comment: PostComment): Long{
+    fun addComment(comment: PostComment): Long {
         return userDao.addComment(comment)
     }
 
-    fun updatePost(post: Post){
+    fun updatePost(post: Post) {
         return userDao.updatePost(post)
     }
 }

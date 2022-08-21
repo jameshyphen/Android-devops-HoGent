@@ -17,6 +17,7 @@ class UserViewModel(application: Application) : AndroidViewModel(application) {
     val readAllUsers: LiveData<List<User>>
     val readUsersWithPosts: LiveData<List<UserWithPosts>>
     val readPostWithComments: LiveData<List<PostWithComments>>
+    fun readPostWithCommentsByPostId(postId: Int): LiveData<List<PostWithComments>> = repository.readPostWithCommentsByPostId(postId)
 
     private val repository: UserRepository
 

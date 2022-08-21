@@ -2,11 +2,14 @@ package com.hogent.pandora.fragments.post.list
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.hogent.pandora.R
@@ -14,6 +17,7 @@ import com.hogent.pandora.data.post.Post
 import com.hogent.pandora.data.post.PostComment
 import com.hogent.pandora.data.user.User
 import com.hogent.pandora.data.user.UserViewModel
+import com.hogent.pandora.fragments.comment.CommentFragment
 import com.hogent.pandora.utils.md5
 import com.squareup.picasso.Picasso
 import java.time.format.DateTimeFormatter
@@ -24,6 +28,7 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
     private var userList = emptyList<User>()
     private var commentList = emptyList<PostComment>()
     private lateinit var mUserViewModel: UserViewModel
+    private lateinit var onCommentClicked: (postId: Int) -> Unit
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -59,16 +64,18 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
             currentPost.dateAdded.format(formatter)
         holder.itemView.findViewById<TextView>(R.id.txt_content).text = currentPost.content
 
-        if(currentPost.usersFavorite != null && currentPost.usersFavorite.isNotEmpty()){
-            holder.itemView.findViewById<MaterialButton>(R.id.btn_like).text = currentPost.usersFavorite.size.toString()
+        if (currentPost.usersFavorite != null && currentPost.usersFavorite.isNotEmpty()) {
+            holder.itemView.findViewById<MaterialButton>(R.id.btn_like).text =
+                currentPost.usersFavorite.size.toString()
         } else {
             holder.itemView.findViewById<MaterialButton>(R.id.btn_like).text = "0"
         }
 
         var currentPostComments = commentList.filter { el -> el.postParentId == currentPost.postId }
 
-        if(currentPostComments != null && currentPostComments.isNotEmpty()){
-            holder.itemView.findViewById<MaterialButton>(R.id.btn_comment).text = currentPostComments.size.toString()
+        if (currentPostComments != null && currentPostComments.isNotEmpty()) {
+            holder.itemView.findViewById<MaterialButton>(R.id.btn_comment).text =
+                currentPostComments.size.toString()
         } else {
             holder.itemView.findViewById<MaterialButton>(R.id.btn_comment).text = "0"
         }
@@ -84,6 +91,10 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
             mUserViewModel.updatePost(currentPost)
             postList = postList.filter { el -> el.postId != currentPost.postId }.plus(currentPost)
             changeLikedPost(user, currentPost, holder)
+        }
+
+        holder.itemView.findViewById<MaterialButton>(R.id.btn_comment).setOnClickListener {
+            this.onCommentClicked(currentPost.postId)
         }
     }
 
@@ -105,6 +116,10 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
         return postList.size
     }
 
+    fun setOnclickFun(clickListener: (postId: Int) -> Unit){
+        onCommentClicked = clickListener
+    }
+
     fun setUserWithPosts(posts: List<Post>, users: List<User>, viewModel: UserViewModel) {
         this.postList = posts
         this.userList = users
@@ -112,7 +127,7 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.MyViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun setPostsWithComments(comments: List<PostComment>){
+    fun setPostsWithComments(comments: List<PostComment>) {
         this.commentList = comments
         notifyDataSetChanged()
     }

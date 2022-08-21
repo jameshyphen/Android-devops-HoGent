@@ -9,6 +9,7 @@ data class PostComment(
     @PrimaryKey(autoGenerate = true)
     val commentId: Int,
     val postParentId: Int,
+    val userParentId: Int,
     val content: String,
     val usersFavorite: List<Int>,
     val dateAdded: LocalDate,

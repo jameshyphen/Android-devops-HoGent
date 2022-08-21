@@ -6,7 +6,7 @@ import androidx.room.Relation
 import com.hogent.pandora.data.user.User
 
 data class PostWithComments(
-    @Embedded val user: Post,
+    @Embedded val post: Post,
     @Relation(
         parentColumn = "postId",
         entityColumn = "postParentId"

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFF"
+    android:padding="24sp">
+
+    <ImageView
+        android:id="@+id/user_avatar_post"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/txt_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:text="dzhemaptula"
+        app:layout_constraintLeft_toRightOf="@+id/user_avatar_post"
+        app:layout_constraintTop_toTopOf="@id/user_avatar_post"/>
+    <TextView
+        android:id="@+id/txt_postedon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="posted on"
+        app:layout_constraintLeft_toRightOf="@+id/txt_username"
+        app:layout_constraintTop_toTopOf="@id/txt_username"/>
+
+    <TextView
+        android:id="@+id/txt_datecreated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="Aug 3 2022 at 15:22"
+        app:layout_constraintLeft_toRightOf="@+id/txt_postedon"
+        app:layout_constraintTop_toTopOf="@id/txt_postedon"/>
+
+
+    <TextView
+        android:id="@+id/txt_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:layout_marginStart="12dp"
+        android:minHeight="100dp"
+        android:text="This is an example post!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_username" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_like"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_margin="12dp"
+        android:layout_marginStart="204dp"
+        android:gravity="center"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:singleLine="true"
+        android:textAllCaps="true"
+        android:text="0"
+        app:backgroundTint="#fc0"
+        app:icon="@drawable/ic_favorite"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconTint="#FFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_content"
+        app:layout_constraintVertical_bias="0.25" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

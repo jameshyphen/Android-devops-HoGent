@@ -54,6 +54,10 @@ interface UserDao {
     fun readPostWithComments(): LiveData<List<PostWithComments>>
 
     @Transaction
+    @Query("SELECT * FROM post WHERE postId=:postId ORDER BY postId ASC")
+    fun readPostWithCommentsByPostId(postId: Int): LiveData<List<PostWithComments>>
+
+    @Transaction
     @Insert
     fun addComment(comment: PostComment): Long
 }
